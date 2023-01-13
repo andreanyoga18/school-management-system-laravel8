@@ -27,7 +27,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-        <h5>User Role <span class="text-danger">*</span></h5>
+            <h5>User Role <span class="text-danger">*</span></h5>
             <div class="controls">
                 <select name="usertype" id="usertype" required="" class="form-control">
                     <option value="" selected="" disabled="">Select Role</option>
