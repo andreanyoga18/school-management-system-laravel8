@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2023 at 01:23 AM
+-- Generation Time: Jan 16, 2023 at 01:24 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -55,9 +55,9 @@ CREATE TABLE `fee_categories` (
 --
 
 INSERT INTO `fee_categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Category 1', '2023-01-11 20:17:03', '2023-01-11 20:17:03'),
-(2, 'Category 2', '2023-01-11 20:21:39', '2023-01-11 20:21:39'),
-(3, 'Category 3', '2023-01-11 20:21:47', '2023-01-11 20:21:47'),
+(1, 'Biaya Pembangunan', '2023-01-11 20:17:03', '2023-01-12 18:30:23'),
+(2, 'Monthly Fee', '2023-01-11 20:21:39', '2023-01-12 18:31:13'),
+(3, 'Biaya buku', '2023-01-11 20:21:47', '2023-01-12 18:31:23'),
 (5, 'Category 4', '2023-01-11 20:51:50', '2023-01-11 20:56:30'),
 (6, 'Category 5', '2023-01-11 20:51:58', '2023-01-11 20:51:58');
 
@@ -84,7 +84,9 @@ INSERT INTO `fee_category_amounts` (`id`, `fee_category_id`, `class_id`, `amount
 (1, 1, 1, 200, '2023-01-12 00:14:43', '2023-01-12 00:14:43'),
 (2, 1, 2, 250, '2023-01-12 00:14:43', '2023-01-12 00:14:43'),
 (3, 1, 3, 300, '2023-01-12 00:14:43', '2023-01-12 00:14:43'),
-(4, 2, 1, 900, '2023-01-12 00:35:47', '2023-01-12 00:35:47');
+(4, 2, 1, 900, '2023-01-12 00:35:47', '2023-01-12 00:35:47'),
+(5, 3, 1, 10000, '2023-01-12 18:42:52', '2023-01-12 18:42:52'),
+(6, 3, 2, 15000, '2023-01-12 18:42:52', '2023-01-12 18:42:52');
 
 -- --------------------------------------------------------
 
@@ -166,8 +168,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('pTTyAmRhr0HlbXT5fWYpp32hl6ISmBhefqIotkVm', 14, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoibWIxdWRrWWdqbnFUalpsVU5XZXlXVGQzcjZncVd1bzhSTzlxRWQ4MSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTQ7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkcml6a2xOVHJ0NC5oZEZhMXBkdDMxTzREakZsZDMuMXc0VnZOMDhRc2QyNmg1LmRmTTlJWlMiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ0OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc2V0dXBzL2ZlZS9hbW91bnQvdmlldyI7fX0=', 1673509796),
-('XjtaUg7Jf10f2Jk8DbIOf8djKex2z7lnTmWb1rEw', 14, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidEpUa0RBM1pJelZmeHlaZmFRd0gwVWFVREZlMElMS0FsRkJtV1JvNyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTQ7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkcml6a2xOVHJ0NC5oZEZhMXBkdDMxTzREakZsZDMuMXc0VnZOMDhRc2QyNmg1LmRmTTlJWlMiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM1OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcHJvZmlsZXMvZWRpdCI7fX0=', 1673534109);
+('UheSjuDPxtKjWck5ShYIt2sgS1Wc80wV4UwqKb5N', 14, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMUhRUE9Cbnhya3Q5enBQMlRxaEVBV1Zaakk4czJ6allOaDlVdnpEUCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTQ7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkcml6a2xOVHJ0NC5oZEZhMXBkdDMxTzREakZsZDMuMXc0VnZOMDhRc2QyNmg1LmRmTTlJWlMiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM1OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcHJvZmlsZXMvdmlldyI7fX0=', 1673828582);
 
 -- --------------------------------------------------------
 
@@ -399,7 +400,7 @@ ALTER TABLE `fee_categories`
 -- AUTO_INCREMENT for table `fee_category_amounts`
 --
 ALTER TABLE `fee_category_amounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
