@@ -36,9 +36,9 @@ class ProfileController extends Controller
 
         if ($request->file('image')) {
             $file = $request->file('image');
-            @unlink(public_path('upload/user_images/'.$data->image));
+            @unlink(public_path('upload/user_images'.$data->image));
             $filename = date('YmdHi').$file->getClientOriginalName();
-            $file->move(public_path('upload/user_images/'),$filename);
+            $file->move(public_path('upload/user_images'),$filename);
             $data['image'] = $filename;
         } //end if
         $data->save();
