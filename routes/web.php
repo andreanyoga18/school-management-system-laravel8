@@ -13,6 +13,9 @@ use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\Setup\SchoolSubjectController;
 use App\Http\Controllers\Backend\Setup\AssignSubjectController;
+use App\Http\Controllers\Backend\Setup\DesignationController;
+use App\Http\Controllers\Backend\Student\StudentRegController;
+
 
 
 
@@ -186,17 +189,38 @@ Route::prefix('setups')->group(function(){
 
     Route::get('assign/subject/add', [AssignSubjectController::class, 'AddAssignSubject'])->name('assign.subject.add');
 
-    //Route::post('assign/subject/store', [AssignSubjectController::class, 'StoreAssignSubject'])->name('store.fee.amount');
+    Route::post('assign/subject/store', [AssignSubjectController::class, 'StoreAssignSubject'])->name('store.assign.subject');
 
-    //Route::get('assign/subject/edit/{fee_category_id}', [AssignSubjectController::class, 'EditAssignSubject'])->name('fee.amount.edit');
+    Route::get('assign/subject/edit/{class_id}', [AssignSubjectController::class, 'EditAssignSubject'])->name('assign.subject.edit');
 
-    //Route::post('assign/subject/update/{fee_category_id}', [AssignSubjectController::class, 'UpdateAssignSubject'])->name('update.fee.amount');
+    Route::post('assign/subject/update/{class_id}', [AssignSubjectController::class, 'UpdateAssignSubject'])->name('update.assign.subject');
 
-    //Route::get('assign/subject/details/{fee_category_id}', [AssignSubjectController::class, 'DetailsAssignSubject'])->name('fee.amount.details');
+    Route::get('assign/subject/details/{class_id}', [AssignSubjectController::class, 'DetailsAssignSubject'])->name('assign.subject.details');
 
     
+    //designation all route
+    Route::get('designation/view', [DesignationController::class, 'ViewDesignation'])->name('designation.view');
+
+    Route::get('designation/add', [DesignationController::class, 'AddDesignation'])->name('designation.add');
+
+    Route::post('designation/store', [DesignationController::class, 'StoreDesignation'])->name('store.designation');
+
+    Route::get('designation/edit/{id}', [DesignationController::class, 'EditDesignation'])->name('edit.designation');
+
+    Route::post('designation/update/{id}', [DesignationController::class, 'UpdateDesignation'])->name('update.designation');
+
+    Route::get('designation/delete{id}', [DesignationController::class, 'DeleteDesignation'])->name('delete.designation');
+
+
+
 });
 
+
+Route::prefix('students')->group(function(){
+    Route::get('/reg/view', [StudentRegController::class, 'StudentRegView'])->name('student.registration.view');
+    
+
+});
 
 
  

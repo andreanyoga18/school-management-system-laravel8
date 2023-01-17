@@ -82,6 +82,21 @@
 
             <li><a href=" {{ route('assign.subject.view') }} "><i class="ti-more"></i>Assign Subject</a></li>
 
+            <li><a href=" {{ route('designation.view') }} "><i class="ti-more"></i>Designation</a></li>
+
+          </ul>
+        </li>
+
+        <li class="treeview {{ ($prefix == '/students')?'active':'' }}">
+          <a href="#">
+            <i data-feather="mail"></i> <span>Student Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href=" {{ route('student.registration.view') }} "><i class="ti-more"></i>Student Registration</a></li>
+
           </ul>
         </li>
 

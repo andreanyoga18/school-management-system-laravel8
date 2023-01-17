@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2023 at 02:49 AM
+-- Generation Time: Jan 17, 2023 at 08:51 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -37,6 +37,40 @@ CREATE TABLE `assign_subjects` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `assign_subjects`
+--
+
+INSERT INTO `assign_subjects` (`id`, `class_id`, `subject_id`, `full_mark`, `pass_mark`, `subjective_mark`, `created_at`, `updated_at`) VALUES
+(4, 2, 1, 100, 25, 100, '2023-01-16 19:12:52', '2023-01-16 19:12:52'),
+(5, 2, 5, 100, 25, 100, '2023-01-16 19:12:52', '2023-01-16 19:12:52'),
+(6, 3, 4, 100, 33, 100, '2023-01-16 19:13:44', '2023-01-16 19:13:44'),
+(7, 3, 5, 100, 30, 100, '2023-01-16 19:13:44', '2023-01-16 19:13:44'),
+(8, 1, 1, 100, 33, 100, '2023-01-16 20:23:24', '2023-01-16 20:23:24'),
+(9, 1, 4, 100, 44, 99, '2023-01-16 20:23:24', '2023-01-16 20:23:24'),
+(10, 1, 5, 100, 55, 100, '2023-01-16 20:23:24', '2023-01-16 20:23:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `designations`
+--
+
+CREATE TABLE `designations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `designations`
+--
+
+INSERT INTO `designations` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Teacher', '2023-01-16 21:56:20', '2023-01-16 22:01:07'),
+(2, 'Teacher Assistant', '2023-01-16 21:56:29', '2023-01-16 22:01:48');
 
 -- --------------------------------------------------------
 
@@ -148,7 +182,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2019_08_19_000000_create_failed_jobs_table', 1),
 (5, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (6, '2023_01_05_012740_create_sessions_table', 1),
-(7, '2014_10_12_000000_create_users_table', 2),
 (8, '2023_01_11_013534_create_student_classes_table', 3),
 (9, '2023_01_11_042729_create_student_years_table', 4),
 (10, '2023_01_11_065731_create_student_groups_table', 5),
@@ -157,7 +190,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2023_01_12_040202_create_fee_category_amounts_table', 8),
 (14, '2023_01_16_024146_create_exam_types_table', 9),
 (16, '2023_01_16_035906_create_school_subjects_table', 10),
-(17, '2023_01_16_045200_create_assign_subjects_table', 11);
+(17, '2023_01_16_045200_create_assign_subjects_table', 11),
+(18, '2023_01_17_041541_create_designations_table', 12),
+(19, '2014_10_12_000000_create_users_table', 13);
 
 -- --------------------------------------------------------
 
@@ -231,7 +266,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('UheSjuDPxtKjWck5ShYIt2sgS1Wc80wV4UwqKb5N', 14, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMUhRUE9Cbnhya3Q5enBQMlRxaEVBV1Zaakk4czJ6allOaDlVdnpEUCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTQ7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkcml6a2xOVHJ0NC5oZEZhMXBkdDMxTzREakZsZDMuMXc0VnZOMDhRc2QyNmg1LmRmTTlJWlMiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc2V0dXBzL2Fzc2lnbi9zdWJqZWN0L2FkZCI7fX0=', 1673855003);
+('SWAFhTJS1VqAYWJp5SSWlSiA7XRlrCuTrVhQy1bw', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo2OntzOjM6InVybCI7YTowOnt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoiTVVMME5heXJPQXU1amo0YnZidmR0SkpiVEwyWUYwQ0JlbWRmTGJETSI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQwNCRZdklia3pmdURva3lkLzRTejFUVGJPdUpQM2J3QUo2c2Q3TjY2dk1acjBkWEpYc3ExaVR1NiI7fQ==', 1673939885);
 
 -- --------------------------------------------------------
 
@@ -330,8 +365,8 @@ INSERT INTO `student_years` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `usertype` varchar(255) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
+  `usertype` varchar(255) DEFAULT NULL COMMENT 'Student,Employee,Admin',
+  `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
@@ -339,7 +374,17 @@ CREATE TABLE `users` (
   `address` varchar(255) DEFAULT NULL,
   `gender` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `status` tinyint(255) DEFAULT NULL,
+  `fname` varchar(255) DEFAULT NULL,
+  `mname` varchar(255) DEFAULT NULL,
+  `religion` varchar(255) DEFAULT NULL,
+  `id_no` varchar(255) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL COMMENT 'admin=head of software, operator, computer operator, user = employee',
+  `join_date` date DEFAULT NULL,
+  `designation_id` int(11) DEFAULT NULL,
+  `salary` double DEFAULT NULL,
+  `status` tinyint(4) NOT NULL COMMENT '0=inactive, 1=active',
   `remember_token` varchar(100) DEFAULT NULL,
   `current_team_id` bigint(20) UNSIGNED DEFAULT NULL,
   `profile_photo_path` varchar(2048) DEFAULT NULL,
@@ -351,11 +396,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `usertype`, `name`, `email`, `email_verified_at`, `password`, `mobile`, `address`, `gender`, `image`, `status`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(2, 'Admin', 'yoga1', '11yoga@gmail.com', NULL, '$2y$10$22kBPUHNevtoSSaB82UW/eMF.qPTpAXvGZg4hZ9CwOTc42WhHby7O', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-01-08 23:47:20', '2023-01-10 00:37:45'),
-(13, 'Admin', 'yoga2', 'yoga2@gmail.com', NULL, '$2y$10$NK3ZbOxIjhLr147aHR8HE.EbVNXnXGfUTvP0nKSO.Z8XPeH/WObUq', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-01-10 00:37:20', '2023-01-10 07:10:38'),
-(14, 'Admin', 'Yoga', 'javaisme99@gmail.com', NULL, '$2y$10$rizklNTrt4.hdFa1pdt31O4DjFld3.1w4VvN08Qsd26h5.dfM9IZS', '081237123512', 'Kazakhstan', 'Male', NULL, NULL, NULL, NULL, NULL, '2023-01-10 06:37:31', '2023-01-10 17:42:18'),
-(15, 'User', 'Budi', 'budi1@gmail.com', NULL, '$2y$10$okZqGfNvX6qUn4IKYiMIg.qnLGxXl/zORr0awzO63IjYMD5IgO.nW', '08123123512', 'Gemolong', 'Male', NULL, NULL, NULL, NULL, NULL, '2023-01-10 17:53:35', '2023-01-10 17:59:32');
+INSERT INTO `users` (`id`, `usertype`, `name`, `email`, `email_verified_at`, `password`, `mobile`, `address`, `gender`, `image`, `fname`, `mname`, `religion`, `id_no`, `dob`, `code`, `role`, `join_date`, `designation_id`, `salary`, `status`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'Admin', 'admin@gmail.com', NULL, '$2y$04$YvIbkzfuDokyd/4Sz1TTbOuJP3bwAJ6sd7N66vMZr0dXJXsq1iTu6', NULL, NULL, 'male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -366,6 +408,13 @@ INSERT INTO `users` (`id`, `usertype`, `name`, `email`, `email_verified_at`, `pa
 --
 ALTER TABLE `assign_subjects`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `designations`
+--
+ALTER TABLE `designations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `designations_name_unique` (`name`);
 
 --
 -- Indexes for table `exam_types`
@@ -472,7 +521,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `assign_subjects`
 --
 ALTER TABLE `assign_subjects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `designations`
+--
+ALTER TABLE `designations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `exam_types`
@@ -502,7 +557,7 @@ ALTER TABLE `fee_category_amounts`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -544,7 +599,7 @@ ALTER TABLE `student_years`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
