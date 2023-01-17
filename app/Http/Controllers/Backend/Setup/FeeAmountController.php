@@ -11,23 +11,26 @@ use App\Models\FeeCategoryAmount;
 
 class FeeAmountController extends Controller
 {
-    public function ViewFeeAmount(){
+    public function ViewFeeAmount()
+    {
         //$data['allData'] = FeeCategoryAmount::all();
         $data['allData'] = FeeCategoryAmount::select('fee_category_id')->groupBy('fee_category_id')->get();
         return view('backend.setup.fee_amount.view_fee_amount', $data);
     }
 
-    public function AddFeeAmount(){
+    public function AddFeeAmount()
+    {
         $data['fee_categories'] = FeeCategory::all();
         $data['classes'] = StudentClass::all();
-        return view('backend.setup.fee_amount.add_fee_amount',$data);
-        
+        return view('backend.setup.fee_amount.add_fee_amount', $data);
+
     }
 
-    public function StoreFeeAmount(Request $request){
+    public function StoreFeeAmount(Request $request)
+    {
         $countClass = count($request->class_id);
-        if ($countClass !=NULL) {
-            for ($i=0; $i <$countClass ; $i++) {   //fungsi pengulangan
+        if ($countClass != NULL) {
+            for ($i = 0; $i < $countClass; $i++) { //fungsi pengulangan
                 $fee_amount = new FeeCategoryAmount();
                 $fee_amount->fee_category_id = $request->fee_category_id;
                 $fee_amount->class_id = $request->class_id[$i];
@@ -36,7 +39,8 @@ class FeeAmountController extends Controller
 
             } //akhir fungsi pengulangan
         } //end if condition
-        $notification = array( //menambah alert message
+        $notification = array(
+            //menambah alert message
             'message' => 'Fee Amount Inserted Successfully',
             'alert-type' => 'success'
         );
@@ -44,10 +48,52 @@ class FeeAmountController extends Controller
 
     } //end function
 
-    public function EditFeeAmount($fee_category_id){
-        $data['editData'] = FeeCategoryAmount::where('fee_category_id, $fee_category_id')->orderBy('class_id', 'asc')->get();
-        dd($data['editData']->toArray());
+    public function EditFeeAmount($fee_category_id)
+    {
+        $data['editData'] = FeeCategoryAmount::where('fee_category_id', $fee_category_id)->orderBy('class_id', 'asc')->get();
+        //dd($data['editData']->toArray());
+
+        $data['fee_categories'] = FeeCategory::all();
+        $data['classes'] = StudentClass::all();
+        return view('backend.setup.fee_amount.edit_fee_amount', $data);
+
     }
 
-    
+    public function UpdateFeeAmount(Request $request, $fee_category_id)
+    {
+        if ($request->class_id == NULL) {
+            $notification = array(
+                //menambah alert message
+                'message' => 'Sorry you are not selecting any class amount',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('fee.amount.edit', $fee_category_id)->with($notification);
+
+        } else {
+            $countClass = count($request->class_id);
+            FeeCategoryAmount::where('fee_category_id', $fee_category_id)->delete();
+            for ($i = 0; $i < $countClass; $i++) { //fungsi pengulangan
+                $fee_amount = new FeeCategoryAmount();
+                $fee_amount->fee_category_id = $request->fee_category_id;
+                $fee_amount->class_id = $request->class_id[$i];
+                $fee_amount->amount = $request->amount[$i];
+                $fee_amount->save();
+            } //end if condition
+            $notification = array(
+                //menambah alert message
+                'message' => 'Data updated successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('fee.amount.view')->with($notification);
+        } //end else
+    }
+
+    public function DetailsFeeAmount($fee_category_id){
+        $data['detailsData'] = FeeCategoryAmount::where('fee_category_id', $fee_category_id)->orderBy('class_id', 'asc')->get();
+
+        return view('backend.setup.fee_amount.details_fee_amount', $data);
+    }
+
 }
+
+
