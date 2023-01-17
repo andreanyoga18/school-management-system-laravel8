@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 16, 2023 at 01:24 AM
+-- Generation Time: Jan 17, 2023 at 02:49 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,44 @@ SET time_zone = "+00:00";
 --
 -- Database: `school`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assign_subjects`
+--
+
+CREATE TABLE `assign_subjects` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `class_id` int(11) NOT NULL,
+  `subject_id` int(11) NOT NULL,
+  `full_mark` double NOT NULL,
+  `pass_mark` double NOT NULL,
+  `subjective_mark` double NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exam_types`
+--
+
+CREATE TABLE `exam_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `exam_types`
+--
+
+INSERT INTO `exam_types` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Exam Type 1', '2023-01-15 20:06:47', '2023-01-15 20:45:09'),
+(2, 'Exam Type 2', '2023-01-15 20:45:16', '2023-01-15 20:45:16');
 
 -- --------------------------------------------------------
 
@@ -81,12 +119,12 @@ CREATE TABLE `fee_category_amounts` (
 --
 
 INSERT INTO `fee_category_amounts` (`id`, `fee_category_id`, `class_id`, `amount`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 200, '2023-01-12 00:14:43', '2023-01-12 00:14:43'),
-(2, 1, 2, 250, '2023-01-12 00:14:43', '2023-01-12 00:14:43'),
-(3, 1, 3, 300, '2023-01-12 00:14:43', '2023-01-12 00:14:43'),
 (4, 2, 1, 900, '2023-01-12 00:35:47', '2023-01-12 00:35:47'),
 (5, 3, 1, 10000, '2023-01-12 18:42:52', '2023-01-12 18:42:52'),
-(6, 3, 2, 15000, '2023-01-12 18:42:52', '2023-01-12 18:42:52');
+(6, 3, 2, 15000, '2023-01-12 18:42:52', '2023-01-12 18:42:52'),
+(7, 1, 1, 100, '2023-01-15 19:03:42', '2023-01-15 19:03:42'),
+(8, 1, 2, 200, '2023-01-15 19:03:42', '2023-01-15 19:03:42'),
+(9, 1, 3, 300, '2023-01-15 19:03:42', '2023-01-15 19:03:42');
 
 -- --------------------------------------------------------
 
@@ -116,7 +154,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2023_01_11_065731_create_student_groups_table', 5),
 (11, '2023_01_11_073707_create_student_shifts_table', 6),
 (12, '2023_01_12_022721_create_fee_categories_table', 7),
-(13, '2023_01_12_040202_create_fee_category_amounts_table', 8);
+(13, '2023_01_12_040202_create_fee_category_amounts_table', 8),
+(14, '2023_01_16_024146_create_exam_types_table', 9),
+(16, '2023_01_16_035906_create_school_subjects_table', 10),
+(17, '2023_01_16_045200_create_assign_subjects_table', 11);
 
 -- --------------------------------------------------------
 
@@ -151,6 +192,28 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `school_subjects`
+--
+
+CREATE TABLE `school_subjects` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `school_subjects`
+--
+
+INSERT INTO `school_subjects` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Japanese', '2023-01-15 21:29:33', '2023-01-16 00:43:13'),
+(4, 'Maths', '2023-01-15 23:04:03', '2023-01-15 23:04:03'),
+(5, 'English', '2023-01-15 23:04:22', '2023-01-15 23:04:22');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sessions`
 --
 
@@ -168,7 +231,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('UheSjuDPxtKjWck5ShYIt2sgS1Wc80wV4UwqKb5N', 14, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMUhRUE9Cbnhya3Q5enBQMlRxaEVBV1Zaakk4czJ6allOaDlVdnpEUCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTQ7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkcml6a2xOVHJ0NC5oZEZhMXBkdDMxTzREakZsZDMuMXc0VnZOMDhRc2QyNmg1LmRmTTlJWlMiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM1OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcHJvZmlsZXMvdmlldyI7fX0=', 1673828582);
+('UheSjuDPxtKjWck5ShYIt2sgS1Wc80wV4UwqKb5N', 14, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMUhRUE9Cbnhya3Q5enBQMlRxaEVBV1Zaakk4czJ6allOaDlVdnpEUCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTQ7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTAkcml6a2xOVHJ0NC5oZEZhMXBkdDMxTzREakZsZDMuMXc0VnZOMDhRc2QyNmg1LmRmTTlJWlMiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc2V0dXBzL2Fzc2lnbi9zdWJqZWN0L2FkZCI7fX0=', 1673855003);
 
 -- --------------------------------------------------------
 
@@ -191,7 +254,8 @@ INSERT INTO `student_classes` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Class One', '2023-01-10 19:08:36', '2023-01-10 19:08:36'),
 (2, 'Class Two', '2023-01-10 19:09:17', '2023-01-10 19:09:17'),
 (3, 'Class Three', '2023-01-10 19:09:26', '2023-01-10 19:09:26'),
-(4, 'Class Satu', '2023-01-10 20:47:00', '2023-01-10 20:47:00');
+(4, 'Class Four', '2023-01-10 20:47:00', '2023-01-16 00:42:36'),
+(7, 'Class Five', '2023-01-16 00:42:44', '2023-01-16 00:42:44');
 
 -- --------------------------------------------------------
 
@@ -298,6 +362,19 @@ INSERT INTO `users` (`id`, `usertype`, `name`, `email`, `email_verified_at`, `pa
 --
 
 --
+-- Indexes for table `assign_subjects`
+--
+ALTER TABLE `assign_subjects`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `exam_types`
+--
+ALTER TABLE `exam_types`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `exam_types_name_unique` (`name`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -336,6 +413,13 @@ ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `school_subjects`
+--
+ALTER TABLE `school_subjects`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `school_subjects_name_unique` (`name`);
 
 --
 -- Indexes for table `sessions`
@@ -385,6 +469,18 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `assign_subjects`
+--
+ALTER TABLE `assign_subjects`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `exam_types`
+--
+ALTER TABLE `exam_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -400,13 +496,13 @@ ALTER TABLE `fee_categories`
 -- AUTO_INCREMENT for table `fee_category_amounts`
 --
 ALTER TABLE `fee_category_amounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -415,10 +511,16 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `school_subjects`
+--
+ALTER TABLE `school_subjects`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `student_classes`
 --
 ALTER TABLE `student_classes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `student_groups`
