@@ -34,7 +34,7 @@ return new class extends Migration
             $table->date('join_date')->nullable();
             $table->integer('designation_id')->nullable();
             $table->double('salary')->nullable();
-            $table->tinyinteger('status')->defaut(1)->comment('0=inactive, 1=active')  ;
+            $table->tinyinteger('status')->default(1)->comment('0=inactive, 1=active')  ;
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

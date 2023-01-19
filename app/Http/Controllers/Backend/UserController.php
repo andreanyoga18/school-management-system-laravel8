@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function UserView(){
         //$alldata = User::all();
-        $data ['allData'] = User::all();
+        $data ['allData'] = User::where('usertype','Admin')->get();
         return view('backend.user.view_user', $data);
     }
 
@@ -25,10 +25,13 @@ class UserController extends Controller
         ]);
 
         $data = new User; //string untuk input data ke database
-        $data->usertype = $request->usertype;
+        $code = rand(0000, 9999);
+        $data->usertype = 'Admin';
+        $data->role = $request->role;
         $data->name = $request->name;
         $data->email = $request->email;
-        $data->password = bcrypt ($request->password);
+        $data->password = bcrypt ($code);
+        $data->code = $code;
         $data->save();
 
         $notification = array( //menambah alert message
@@ -45,9 +48,9 @@ class UserController extends Controller
     }
     Public function UserUpdate(Request $request, $id){
         $data = User::find($id); //string untuk update data ke database berdasarkan id
-        $data->usertype = $request->usertype;
         $data->name = $request->name;
         $data->email = $request->email;
+        $data->role = $request->role;
         $data->save();
 
         $notification = array( //menambah alert message

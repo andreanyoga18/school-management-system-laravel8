@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2023 at 08:51 AM
+-- Generation Time: Jan 19, 2023 at 01:02 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `school`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assign_students`
+--
+
+CREATE TABLE `assign_students` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` int(11) NOT NULL COMMENT 'user_id=student_id',
+  `class_id` int(11) NOT NULL,
+  `year_id` int(11) NOT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `shift_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -71,6 +88,21 @@ CREATE TABLE `designations` (
 INSERT INTO `designations` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Teacher', '2023-01-16 21:56:20', '2023-01-16 22:01:07'),
 (2, 'Teacher Assistant', '2023-01-16 21:56:29', '2023-01-16 22:01:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discount_students`
+--
+
+CREATE TABLE `discount_students` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `assign_student_id` int(11) NOT NULL,
+  `fee_category_id` int(11) NOT NULL,
+  `discount` double DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -192,7 +224,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2023_01_16_035906_create_school_subjects_table', 10),
 (17, '2023_01_16_045200_create_assign_subjects_table', 11),
 (18, '2023_01_17_041541_create_designations_table', 12),
-(19, '2014_10_12_000000_create_users_table', 13);
+(20, '2023_01_18_002901_create_assign_students_table', 14),
+(21, '2023_01_18_003246_create_discount_students_table', 14),
+(22, '2014_10_12_000000_create_users_table', 15);
 
 -- --------------------------------------------------------
 
@@ -266,7 +300,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('SWAFhTJS1VqAYWJp5SSWlSiA7XRlrCuTrVhQy1bw', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo2OntzOjM6InVybCI7YTowOnt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoiTVVMME5heXJPQXU1amo0YnZidmR0SkpiVEwyWUYwQ0JlbWRmTGJETSI7czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQwNCRZdklia3pmdURva3lkLzRTejFUVGJPdUpQM2J3QUo2c2Q3TjY2dk1acjBkWEpYc3ExaVR1NiI7fQ==', 1673939885);
+('sAjxK7yCu9ZBJCnZvPSklRYFnhILVd7cXBJttTm8', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', 'YTo2OntzOjM6InVybCI7YTowOnt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdHVkZW50cy9yZWcvYWRkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo2OiJfdG9rZW4iO3M6NDA6InI1dWRiT09nNTdPUkZMM0RUc3hNVDBIV3Nnd2NSWVZ3NEFmbTRYQ04iO3M6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMDQkWXZJYmt6ZnVEb2t5ZC80U3oxVFRiT3VKUDNid0FKNnNkN042NnZNWnIwZFhKWHNxMWlUdTYiO30=', 1674021508);
 
 -- --------------------------------------------------------
 
@@ -354,8 +388,11 @@ CREATE TABLE `student_years` (
 --
 
 INSERT INTO `student_years` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, '2023', '2023-01-10 23:15:18', '2023-01-10 23:15:18'),
-(2, '2015', '2023-01-10 23:15:53', '2023-01-10 23:30:21');
+(1, '2014', '2023-01-10 23:15:18', '2023-01-17 19:58:49'),
+(2, '2015', '2023-01-10 23:15:53', '2023-01-10 23:30:21'),
+(4, '2016', '2023-01-17 19:58:56', '2023-01-17 19:58:56'),
+(5, '2017', '2023-01-17 19:59:03', '2023-01-17 19:59:03'),
+(6, '2018', '2023-01-17 19:59:08', '2023-01-17 19:59:08');
 
 -- --------------------------------------------------------
 
@@ -384,7 +421,7 @@ CREATE TABLE `users` (
   `join_date` date DEFAULT NULL,
   `designation_id` int(11) DEFAULT NULL,
   `salary` double DEFAULT NULL,
-  `status` tinyint(4) NOT NULL COMMENT '0=inactive, 1=active',
+  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '0=inactive, 1=active',
   `remember_token` varchar(100) DEFAULT NULL,
   `current_team_id` bigint(20) UNSIGNED DEFAULT NULL,
   `profile_photo_path` varchar(2048) DEFAULT NULL,
@@ -397,11 +434,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `usertype`, `name`, `email`, `email_verified_at`, `password`, `mobile`, `address`, `gender`, `image`, `fname`, `mname`, `religion`, `id_no`, `dob`, `code`, `role`, `join_date`, `designation_id`, `salary`, `status`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'Admin', 'admin@gmail.com', NULL, '$2y$04$YvIbkzfuDokyd/4Sz1TTbOuJP3bwAJ6sd7N66vMZr0dXJXsq1iTu6', NULL, NULL, 'male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL);
+(1, 'Admin', 'Admin', 'admin@gmail.com', NULL, '$2y$04$YvIbkzfuDokyd/4Sz1TTbOuJP3bwAJ6sd7N66vMZr0dXJXsq1iTu6', NULL, NULL, 'male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL),
+(3, 'Admin', 'Operator 1', 'operator1@gmail.com', NULL, '$2y$10$XGu0.663IzY3NU8mcfj0OOPM3Ao2DQ98PP3c7LdoNkJbcAfiAjEtG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '4841', 'Operator', NULL, NULL, NULL, 1, NULL, NULL, NULL, '2023-01-17 18:45:38', '2023-01-17 18:45:38');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `assign_students`
+--
+ALTER TABLE `assign_students`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `assign_subjects`
@@ -415,6 +459,12 @@ ALTER TABLE `assign_subjects`
 ALTER TABLE `designations`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `designations_name_unique` (`name`);
+
+--
+-- Indexes for table `discount_students`
+--
+ALTER TABLE `discount_students`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `exam_types`
@@ -518,6 +568,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `assign_students`
+--
+ALTER TABLE `assign_students`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `assign_subjects`
 --
 ALTER TABLE `assign_subjects`
@@ -528,6 +584,12 @@ ALTER TABLE `assign_subjects`
 --
 ALTER TABLE `designations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `discount_students`
+--
+ALTER TABLE `discount_students`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `exam_types`
@@ -557,7 +619,7 @@ ALTER TABLE `fee_category_amounts`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -593,13 +655,13 @@ ALTER TABLE `student_shifts`
 -- AUTO_INCREMENT for table `student_years`
 --
 ALTER TABLE `student_years`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
