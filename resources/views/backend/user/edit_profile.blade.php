@@ -19,7 +19,7 @@
            <div class="box-body">
              <div class="row">
                <div class="col">
-    <form method="post" action=" {{ route('profile.store') }} " encytype="multipart/form-data">
+    <form method="post" action=" {{ route('profile.store') }} " enctype="multipart/form-data">
         @csrf
                      <div class="row">
                        <div class="col-12">	
@@ -85,7 +85,7 @@
       <div class="form-group">
       <h5>Profile Image<span class="text-danger">*</span></h5>
           <div class="controls">
-              <input type="file" name="image" id="image" class="form-control" >
+              <input type="file" name="image" class="form-control" id="image">
           </div> <!-- end class-->
           <div class="form-group">
                 <div class="controls">
@@ -94,6 +94,7 @@
             </div> <!-- End form-group-->
       </div> <!-- End form-group-->
   </div> <!-- End Col Md-6 -->
+
 </div> <!-- end row-->
 
                            
